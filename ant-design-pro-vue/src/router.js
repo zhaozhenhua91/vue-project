@@ -9,17 +9,28 @@ export default new Router({
   routes: [
     {
       path: "/",
+      meta: {authority: ['user','admin']},
       component: () =>
-          import("./layouts/BasicLayout.vue")
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+          import("./layouts/BasicLayout.vue"),
+      children: [
+        {
+          path: '/',
+          redirect: "/dashboard/analysis"
+        },
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          meta: {icon: "dashboard", title: '仪表盘'},
+          component: {render: h => h('router-view')},
+          children: [{
+            path: '/dashboard/analysis',
+            name: 'analysis',
+            meta: {title: '分析页'},
+            component: () =>
+                import("./views/Dashboard/Analysis.vue")
+          }]
+        }
+      ]
     }
   ]
 });
