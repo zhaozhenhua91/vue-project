@@ -18,7 +18,7 @@
                     <Header />
                 </a-layout-header>
                 <a-layout-content :style="{ margin: '24px 16px', padding: '24px', background: '#fff', minHeight: '280px' }">
-                    Content
+                    <router-view></router-view>
                 </a-layout-content>
                 <a-layout-footer style="text-align: center;">
                     <Footer />
