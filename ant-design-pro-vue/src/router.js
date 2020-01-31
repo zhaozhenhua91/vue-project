@@ -69,5 +69,6 @@ export default new Router({
         import("./views/Forms/BasicForm")
       }]
     }
+
   ]
 });
