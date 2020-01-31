@@ -8,6 +8,30 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/user",
+      hideInMenu: true,
+      component: () =>
+         import("./layouts/UserLayout"),
+      children: [
+        {
+          path: "/user",
+          redirect: "/user/login"
+        },
+        {
+          path: "/user/login",
+          name: "login",
+          component: () =>
+             import("./views/User/Login")   
+        },
+        {
+          path: "/user/register",
+          name: "register",
+          component: () => 
+            import("./views/User/Register")
+        }
+      ]
+    },
+    {
       path: "/",
       meta: {authority: ['user','admin']},
       component: () =>
@@ -20,7 +44,7 @@ export default new Router({
         {
           path: '/dashboard',
           name: 'dashboard',
-          meta: {icon: "dashboard", title: '仪表盘'},
+          meta: {icon: "dashboard", title: '仪表盘',authority: ['user']},
           component: {render: h => h('router-view')},
           children: [{
             path: '/dashboard/analysis',
@@ -31,6 +55,19 @@ export default new Router({
           }]
         }
       ]
+    },
+    {
+      path: "/form",
+      name: "form",
+      component: {render: h => h("router-view")},
+      meta: {icon: "form", title: "表单",},
+      children: [{
+        path: "/form/basic-form",
+        name: "basicform",
+        meta: {title: "基础表单"},
+        component: () => 
+        import("./views/Forms/BasicForm")
+      }]
     }
   ]
 });

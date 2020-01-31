@@ -5,6 +5,7 @@
                     :trigger="null"
                     collapsible
                     v-model="collapsed"
+                    width="256px"
             >
                 <SiderMenu />
             </a-layout-sider>
